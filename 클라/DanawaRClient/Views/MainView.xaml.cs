@@ -89,6 +89,7 @@ namespace DanawaRClient.Views
         {
             _timer?.Stop();
             Application.Current.Shutdown();
+            //
         }
     }
 }
