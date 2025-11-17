@@ -25,7 +25,8 @@ namespace DanawaRClient.Views
             // 자동으로 디바이스 ID 생성
             string deviceId = GetAutoDeviceId();
 
-            _dataSender = new DataSender("http://localhost:5000/api/sensor", deviceId);
+            // 포트를 9000으로 수정
+            _dataSender = new DataSender("http://10.10.21.127:9000", deviceId);
 
             System.Diagnostics.Debug.WriteLine($"디바이스 ID: {deviceId}");
 
@@ -133,16 +134,19 @@ namespace DanawaRClient.Views
             // 리소스 정리
             _timer?.Stop();
             _counter?.Dispose();
+            _dataSender?.Dispose();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             _timer?.Stop();
             _counter?.Dispose();
+            _dataSender?.Dispose();
             Application.Current.Shutdown();
         }
+
         private async void SendDataToServer(
-    double cpu, double ram, double netSent, double netReceived, double temp)
+            double cpu, double ram, double netSent, double netReceived, double temp)
         {
             try
             {
