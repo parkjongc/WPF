@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibreHardwareMonitor.Hardware;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -18,13 +19,16 @@ namespace DanawaRClient
 
         public PerformanceCounter FreeSpaceDiskTotal { get; set; }
         public PerformanceCounter FreeSpaceDiskC { get; set; }
-        public PerformanceCounter? FreeSpaceDiskD { get; set; }  // nullable로 변경
+        public PerformanceCounter? FreeSpaceDiskD { get; set; }
 
         public PerformanceCounter SentBytesPerSecond { get; set; }
         public PerformanceCounter ReceivedBytesPerSecond { get; set; }
 
         private readonly double _totalDiskSpaceGB;
         private readonly double _totalRAMInMB;
+
+        // LibreHardwareMonitor 추가
+        private Computer _computer;
 
         public Counter()
         {
@@ -72,6 +76,21 @@ namespace DanawaRClient
 
             SentBytesPerSecond = new PerformanceCounter("Network Interface", "Bytes Sent/sec", adapter);
             ReceivedBytesPerSecond = new PerformanceCounter("Network Interface", "Bytes Received/sec", adapter);
+
+            // LibreHardwareMonitor 초기화
+            try
+            {
+                _computer = new Computer
+                {
+                    IsCpuEnabled = true,
+                    IsMotherboardEnabled = true
+                };
+                _computer.Open();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"LibreHardwareMonitor 초기화 실패: {ex.Message}");
+            }
         }
 
         // WMI를 사용해서 전체 RAM 용량 가져오기
@@ -141,7 +160,7 @@ namespace DanawaRClient
             return _totalDiskSpaceGB - GetFreeSpaceLabel();
         }
 
-        // Network 메서드들 수정
+        // Network 메서드들
         public double GetNetworkSentBytes()
         {
             try
@@ -186,8 +205,88 @@ namespace DanawaRClient
             return 100 - FreeSpaceDiskD.NextValue();
         }
 
-        // CPU 온도 가져오기
+        // CPU 온도 가져오기 (여러 방법 시도)
         public double GetCPUTemperature()
+        {
+            // 방법 1: LibreHardwareMonitor
+            var temp = GetTemperatureFromLibre();
+            if (temp > 0)
+            {
+                Debug.WriteLine($"[온도] LibreHardwareMonitor: {temp}°C");
+                return temp;
+            }
+
+            // 방법 2: WMI MSAcpi_ThermalZoneTemperature
+            temp = GetTemperatureFromWMI();
+            if (temp > 0)
+            {
+                Debug.WriteLine($"[온도] WMI ACPI: {temp}°C");
+                return temp;
+            }
+
+            // 방법 3: OpenHardwareMonitor WMI (백그라운드에서 실행 중일 때)
+            temp = GetTemperatureFromOHM();
+            if (temp > 0)
+            {
+                Debug.WriteLine($"[온도] OpenHardwareMonitor: {temp}°C");
+                return temp;
+            }
+
+            Debug.WriteLine("[온도] 모든 방법 실패");
+            return 0; // 모든 방법 실패
+        }
+
+        private double GetTemperatureFromLibre()
+        {
+            if (_computer == null)
+                return 0;
+
+            try
+            {
+                foreach (var hardware in _computer.Hardware)
+                {
+                    hardware.Update();
+
+                    if (hardware.HardwareType == HardwareType.Cpu)
+                    {
+                        // 모든 온도 센서 수집
+                        var temps = hardware.Sensors
+                            .Where(s => s.SensorType == SensorType.Temperature && s.Value.HasValue && s.Value.Value > 0)
+                            .ToList();
+
+                        if (temps.Any())
+                        {
+                            // Package 온도 우선
+                            var packageTemp = temps.FirstOrDefault(s =>
+                                s.Name.Contains("Package") || s.Name.Contains("CPU"));
+                            if (packageTemp != null)
+                                return packageTemp.Value.Value;
+
+                            // Core Average
+                            var avgTemp = temps.FirstOrDefault(s => s.Name.Contains("Average"));
+                            if (avgTemp != null)
+                                return avgTemp.Value.Value;
+
+                            // Core Max
+                            var maxTemp = temps.FirstOrDefault(s => s.Name.Contains("Max"));
+                            if (maxTemp != null)
+                                return maxTemp.Value.Value;
+
+                            // 첫 번째 코어
+                            return temps.First().Value.Value;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"LibreHardwareMonitor 온도 읽기 실패: {ex.Message}");
+            }
+
+            return 0;
+        }
+
+        private double GetTemperatureFromWMI()
         {
             try
             {
@@ -198,15 +297,44 @@ namespace DanawaRClient
                 foreach (ManagementObject obj in searcher.Get())
                 {
                     var temp = Convert.ToDouble(obj["CurrentTemperature"]);
-                    return (temp - 2732) / 10.0;
+                    var celsius = (temp - 2732) / 10.0;
+                    if (celsius > 0 && celsius < 150)
+                        return celsius;
                 }
             }
-            catch
-            {
-                // 온도를 가져올 수 없는 경우
-            }
+            catch { }
 
             return 0;
+        }
+
+        private double GetTemperatureFromOHM()
+        {
+            try
+            {
+                var searcher = new ManagementObjectSearcher(
+                    @"root\OpenHardwareMonitor",
+                    "SELECT * FROM Sensor WHERE SensorType='Temperature' AND Name LIKE '%CPU%'");
+
+                foreach (ManagementObject obj in searcher.Get())
+                {
+                    var value = Convert.ToDouble(obj["Value"]);
+                    if (value > 0 && value < 150)
+                        return value;
+                }
+            }
+            catch { }
+
+            return 0;
+        }
+
+        // Dispose 메서드 추가 (리소스 정리)
+        public void Dispose()
+        {
+            try
+            {
+                _computer?.Close();
+            }
+            catch { }
         }
     }
 }

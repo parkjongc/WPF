@@ -11,16 +11,23 @@ namespace DanawaRClient.Views
     {
         private Counter _counter;
         private DispatcherTimer _timer;
+        private DataSender _dataSender;
+        private int _sendCounter = 0;
+        private const int SEND_INTERVAL = 3;
 
         public MainView()
         {
             InitializeComponent();
 
             _counter = new Counter();
+            _dataSender = new DataSender("http://10.10.21.127:9000/api/sensor", "Agent-01");
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(1);
             _timer.Tick += Timer_Tick;
             _timer.Start();
+
+            // 컨트롤이 언로드될 때 리소스 정리
+            this.Unloaded += MainView_Unloaded;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -31,20 +38,17 @@ namespace DanawaRClient.Views
                 var cpuValue = _counter.PerformanceCPU.NextValue();
                 cpuProgressBar.Value = cpuValue;
                 cpuLabel.Content = cpuValue;
-
-                // CPU 차트 업데이트 - LineChart 사용
+                // CPU 차트 업데이트
                 if (cpuLineChart != null)
                 {
                     cpuLineChart.AddValue(cpuValue);
                 }
-
                 // RAM
                 var ramPercent = _counter.GetFreeRAMInPercent();
                 ramProgressBar.Value = ramPercent;
                 ramLabel.Content = ramPercent;
                 ramUsedLabel.Content = _counter.GetUsedRAMInGBytes();
                 ramFreeLabel.Content = _counter.GetFreeRAMInGBytes();
-
                 // Disk Total Gauge
                 if (diskTotalGauge != null)
                 {
@@ -53,30 +57,34 @@ namespace DanawaRClient.Views
                 diskSpaceTotalLabel.Content = _counter.GetFreeSpaceTotal();
                 usedSpaceTotalLabel.Content = _counter.GetUsedSpaceLabel();
                 freeSpaceTotalLabel.Content = _counter.GetFreeSpaceLabel();
-
                 // Disk C Gauge
                 if (diskCGauge != null)
                 {
                     diskCGauge.GaugeValue = _counter.GetFreeSpaceCGauge();
                 }
                 diskCLabel.Content = _counter.GetFreeSpaceDiskC();
-
                 // Disk D Gauge
                 if (diskDGauge != null)
                 {
                     diskDGauge.GaugeValue = _counter.GetFreeSpaceDGauge();
                 }
                 diskDLabel.Content = _counter.GetFreeSpaceDiskD();
-
                 // Network
                 var sent = _counter.GetNetworkSentBytes();
                 var received = _counter.GetNetworkReceivedBytes();
                 networkSentBytesLabel.Content = sent;
                 networkReceivedBytesLabel.Content = received;
-
-                // Temperature
+                // Temperature (CPU 온도)
                 var temp = _counter.GetCPUTemperature();
                 temperature.Content = temp > 0 ? temp : 0;
+
+                // 서버로 데이터 전송 (3초마다)
+                _sendCounter++;
+                if (_sendCounter >= SEND_INTERVAL)
+                {
+                    _sendCounter = 0;
+                    SendDataToServer(cpuValue, ramPercent, sent, received, temp);
+                }
             }
             catch (Exception ex)
             {
@@ -85,11 +93,43 @@ namespace DanawaRClient.Views
             }
         }
 
+        private void MainView_Unloaded(object sender, RoutedEventArgs e)
+        {
+            // 리소스 정리
+            _timer?.Stop();
+            _counter?.Dispose();
+        }
+
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             _timer?.Stop();
+            _counter?.Dispose();
             Application.Current.Shutdown();
-            //
+        }
+        private async void SendDataToServer(
+    double cpu, double ram, double netSent, double netReceived, double temp)
+        {
+            try
+            {
+                var diskUsage = _counter.GetFreeSpaceTotalGauge();
+
+                var data = new SensorData
+                {
+                    CpuUsage = Math.Round(cpu, 2),
+                    RamUsagePercent = Math.Round(ram, 2),
+                    DiskUsagePercent = Math.Round(diskUsage, 2),
+                    NetworkSent = Math.Round(netSent, 2),
+                    NetworkReceived = Math.Round(netReceived, 2),
+                    VirtualTemp = Math.Round(temp, 2)
+                };
+
+                await _dataSender.SendSensorDataAsync(data);
+                System.Diagnostics.Debug.WriteLine("서버 전송 완료!");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"전송 오류: {ex.Message}");
+            }
         }
     }
 }
