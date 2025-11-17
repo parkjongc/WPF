@@ -1,6 +1,7 @@
 ﻿// MainWindow.xaml.cs
 
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -20,14 +21,48 @@ namespace DanawaRClient.Views
             InitializeComponent();
 
             _counter = new Counter();
-            _dataSender = new DataSender("http://10.10.21.127:9000/api/sensor", "Agent-01");
+
+            // 자동으로 디바이스 ID 생성
+            string deviceId = GetAutoDeviceId();
+
+            _dataSender = new DataSender("http://localhost:5000/api/sensor", deviceId);
+
+            System.Diagnostics.Debug.WriteLine($"디바이스 ID: {deviceId}");
+
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(1);
             _timer.Tick += Timer_Tick;
             _timer.Start();
 
-            // 컨트롤이 언로드될 때 리소스 정리
             this.Unloaded += MainView_Unloaded;
+        }
+
+        private string GetAutoDeviceId()
+        {
+            try
+            {
+                // MAC 주소 가져오기
+                var mac = System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()
+                    .Where(n => n.OperationalStatus == System.Net.NetworkInformation.OperationalStatus.Up &&
+                               n.NetworkInterfaceType != System.Net.NetworkInformation.NetworkInterfaceType.Loopback)
+                    .OrderBy(n => n.Name)
+                    .FirstOrDefault()
+                    ?.GetPhysicalAddress()
+                    .ToString();
+
+                if (string.IsNullOrEmpty(mac))
+                    return "Agent-00";
+
+                // MAC 주소를 숫자로 변환 (01~99)
+                int hashCode = mac.GetHashCode();
+                int number = Math.Abs(hashCode % 99) + 1; // 1~99
+
+                return $"Agent-{number:D2}"; // Agent-01, Agent-02 형식
+            }
+            catch
+            {
+                return Environment.MachineName; // 실패 시 PC 이름
+            }
         }
 
         private void Timer_Tick(object sender, EventArgs e)

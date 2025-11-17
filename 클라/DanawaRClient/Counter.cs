@@ -205,7 +205,7 @@ namespace DanawaRClient
             return 100 - FreeSpaceDiskD.NextValue();
         }
 
-        // CPU 온도 가져오기 (여러 방법 시도)
+        // CPU 온도 가져오기 (3가지 방법 시도)
         public double GetCPUTemperature()
         {
             // 방법 1: LibreHardwareMonitor
@@ -233,7 +233,7 @@ namespace DanawaRClient
             }
 
             Debug.WriteLine("[온도] 모든 방법 실패");
-            return 0; // 모든 방법 실패
+            return 0;
         }
 
         private double GetTemperatureFromLibre()
@@ -302,7 +302,10 @@ namespace DanawaRClient
                         return celsius;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"WMI ACPI 온도 읽기 실패: {ex.Message}");
+            }
 
             return 0;
         }
@@ -322,7 +325,10 @@ namespace DanawaRClient
                         return value;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"OpenHardwareMonitor 온도 읽기 실패: {ex.Message}");
+            }
 
             return 0;
         }
