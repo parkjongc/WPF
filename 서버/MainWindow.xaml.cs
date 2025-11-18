@@ -27,7 +27,7 @@ namespace DanawaR_Host
             // XAML에 정의된 UI 요소들을 실제 객체로 초기화하는 필수 메서드.
             // 이걸 호출하지 않으면 XAML UI가 화면에 표시되지 않음.
 
-            StatusText.Text = "서버 실행 중 (포트 9000)";
+            StatusText.Content = "서버 실행 중 (포트 9000)";
             // XAML에 배치된 TextBlock(이름: StatusText)에
             // 초기 메시지를 설정해주는 부분.
             // 프로그램 실행 직후 UI에 서버 상태를 보여주기 위해 사용함.
@@ -40,7 +40,7 @@ namespace DanawaR_Host
         private async void ShutdownButton_Click(object sender, RoutedEventArgs e)
         {
             // UI에 현재 상태 표시
-            StatusText.Text = "종료 명령 전송 중...";
+            StatusText.Content = "종료 명령 전송 중...";
 
             try
             {
@@ -48,12 +48,12 @@ namespace DanawaR_Host
                 await Server.BroadcastShutdownAsync();
 
                 // 전송 완료 후 상태 갱신
-                StatusText.Text = "종료 명령 전송 완료";
+                StatusText.Content = "종료 명령 전송 완료";
             }
             catch (Exception ex)
             {
                 // 전송 중 오류가 난 경우 상태 및 디버그 로그 출력
-                StatusText.Text = "종료 명령 전송 실패";
+                StatusText.Content = "종료 명령 전송 실패";
                 System.Diagnostics.Debug.WriteLine("Shutdown error: " + ex.Message);
             }
         }

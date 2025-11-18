@@ -3,29 +3,211 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:DanawaR_Host"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="DanawaR Host" Height="450" Width="800">
+        Title="Agent 관제 대시보드 (HOST)" Height="800" Width="1200"
+        Background="#191b26">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="RunningBrush" Color="#4CAF50"/>
+        <SolidColorBrush x:Key="StoppedBrush" Color="#F44336"/>
+        <SolidColorBrush x:Key="DefaultColor" Color="#A0A0A0"/>
+
+        <Style TargetType="ListBoxItem" x:Key="ListBoxItemStyle">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="False">
+                    <Setter Property="Opacity" Value="0.7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
     <Grid>
-        <!-- 세로로 배치하기 위해 StackPanel 사용 -->
-        <StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <!-- 서버 상태 표시 텍스트 -->
-            <TextBlock x:Name="StatusText"
-                       Text="초기화중..."
-                       FontSize="22"
-                       Foreground="Black"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,20" />
+        <Border Grid.Row="0" Padding="20 15 20 10" Background="#282a36">
+            <DockPanel>
 
-            <!-- 종료 명령 보내기 버튼 -->
-            <Button x:Name="ShutdownButton"
-                    Content="종료 명령 보내기"
-                    Width="200"
-                    Height="40"
-                    Click="ShutdownButton_Click" />
-        </StackPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
+
+                    <TextBlock Text="Danawa_R 관제 대시보드" FontSize="24" FontWeight="Bold"
+                               VerticalAlignment="Center" Foreground="#fcfafa" Margin="0 0 720 0"/>
+
+                    <TextBlock Text="서버" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" Foreground="#fcfafa" Margin="0 0 0 0"/>
+                    <Ellipse Width="15" Height="15" Fill="{StaticResource StoppedBrush}" VerticalAlignment="Center" Margin="5 0 15 0"/>
+
+                    <TextBlock Text="DB" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" Foreground="#fcfafa" Margin="0 0 0 0"/>
+                    <Ellipse Width="15" Height="15" Fill="{StaticResource StoppedBrush}" VerticalAlignment="Center" Margin="5 0 0 0"/>
+                </StackPanel>
+
+            </DockPanel>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="20 15 20 20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Background="#282a36" CornerRadius="10" Padding="15">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="접속 Agent 목록 (요약 뷰)" Foreground="#fcfafa" FontSize="16" Margin="0 0 0 10"/>
+                    <ListBox Background="Transparent" BorderBrush="Transparent" SelectedIndex="0" ItemContainerStyle="{StaticResource ListBoxItemStyle}">
+
+                        <ListBoxItem IsSelected="True">
+                            <Border Padding="10" Margin="0 5 0 5" CornerRadius="5" Background="#191b26" BorderBrush="#464a63" BorderThickness="1">
+                                <StackPanel>
+                                    <DockPanel>
+                                        <TextBlock Text="DEVICE-001 (선택됨)" Foreground="#fcfafa" FontWeight="Bold" DockPanel.Dock="Left"/>
+                                        <TextBlock Text="가동중" DockPanel.Dock="Right" Foreground="{StaticResource RunningBrush}"/>
+                                    </DockPanel>
+                                    <TextBlock Text="CPU: 18% | RAM: 0%" Foreground="#a0a0a0" FontSize="12" Margin="0 3 0 0"/>
+                                    <TextBlock Text="Disk: 0% | Temp: 8°C" Foreground="#a0a0a0" FontSize="12"/>
+                                </StackPanel>
+                            </Border>
+                        </ListBoxItem>
+
+                        <ListBoxItem>
+                            <Border Padding="10" Margin="0 5 0 5" CornerRadius="5" Background="#191b26" BorderBrush="#464a63" BorderThickness="1">
+                                <StackPanel>
+                                    <DockPanel>
+                                        <TextBlock Text="DEVICE-002 (가동중)" Foreground="#fcfafa" FontWeight="Bold" DockPanel.Dock="Left"/>
+                                        <TextBlock Text="가동중" DockPanel.Dock="Right" Foreground="{StaticResource RunningBrush}"/>
+                                    </DockPanel>
+                                    <TextBlock Text="CPU: 28% | RAM: 60%" Foreground="#a0a0a0" FontSize="12" Margin="0 3 0 0"/>
+                                    <TextBlock Text="Disk: 15% | Temp: 68°C" Foreground="#a0a0a0" FontSize="12"/>
+                                </StackPanel>
+                            </Border>
+                        </ListBoxItem>
+
+                        <ListBoxItem>
+                            <Border Padding="10" Margin="0 5 0 5" CornerRadius="5" Background="#191b26" BorderBrush="#464a63" BorderThickness="1">
+                                <StackPanel>
+                                    <DockPanel>
+                                        <TextBlock Text="DEVICE-003 (정지됨)" Foreground="#fcfafa" FontWeight="Bold" DockPanel.Dock="Left"/>
+                                        <TextBlock Text="정지됨" DockPanel.Dock="Right" Foreground="{StaticResource StoppedBrush}"/>
+                                    </DockPanel>
+                                    <TextBlock Text="CPU: 0% | RAM: 0%" Foreground="#a0a0a0" FontSize="12" Margin="0 3 0 0"/>
+                                    <TextBlock Text="Disk: 0% | Temp: 0°C" Foreground="#a0a0a0" FontSize="12"/>
+                                </StackPanel>
+                            </Border>
+                        </ListBoxItem>
+
+                    </ListBox>
+                </DockPanel>
+            </Border>
+
+            <Border Grid.Column="2" Background="#282a36" CornerRadius="10" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="Agent 상세 모니터링: [DEVICE-001]"
+                               Foreground="#fcfafa" FontSize="22" Margin="0 0 0 20"/>
+
+                    <Grid Margin="0 0 0 20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="120"/>
+                            <RowDefinition Height="120"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Background="#191b26" CornerRadius="8" Padding="15">
+                            <StackPanel>
+                                <TextBlock Text="CPU 사용률" Foreground="#fcfafa"/>
+                                <TextBlock Text="0.0%" Foreground="#2889fc" FontSize="36" HorizontalAlignment="Center" Margin="0 5 0 0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="0" Background="#191b26" CornerRadius="8" Padding="15" Margin="10 0 0 0">
+                            <StackPanel>
+                                <TextBlock Text="RAM 사용률" Foreground="#fcfafa"/>
+                                <TextBlock Text="0.0%" Foreground="#2889fc" FontSize="36" HorizontalAlignment="Center" Margin="0 5 0 0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="0" Grid.Row="1" Background="#191b26" CornerRadius="8" Padding="15" Margin="0 10 0 0">
+                            <StackPanel>
+                                <TextBlock Text="Disk 사용률" Foreground="#fcfafa"/>
+                                <TextBlock Text="0.0%" Foreground="#2889fc" FontSize="36" HorizontalAlignment="Center" Margin="0 5 0 0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Background="#191b26" CornerRadius="8" Padding="15" Margin="10 10 0 0">
+                            <StackPanel>
+                                <TextBlock Text="가상 온도 (VirtualTemp)" Foreground="#fcfafa"/>
+                                <ProgressBar Value="0" Maximum="100" Height="15" Margin="0 15 0 0"
+                                             Foreground="#F44336" Background="#464a63"/>
+
+                                <TextBlock Text="0.0°C" Foreground="#F44336"
+                                           FontSize="20" HorizontalAlignment="Center" Margin="0 5 0 0"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <Border Background="#191b26" CornerRadius="8" Padding="15" Height="220" Margin="0 0 0 15">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Text="Agent-01 실시간 CPU 차트" Foreground="#fcfafa" FontSize="16" Margin="0 0 0 10"/>
+
+                            <lvc:CartesianChart Grid.Row="1" LegendLocation="None" Margin="0 5 0 0">
+                                <lvc:CartesianChart.Series>
+                                    <lvc:LineSeries Title="CPU (%)" Values="{Binding CpuHistory}" 
+                                                    PointGeometrySize="0" Stroke="#2889fc" Fill="#2889fc33"/>
+                                </lvc:CartesianChart.Series>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="Usage (%)" MinValue="0" MaxValue="100" Foreground="#a0a0a0">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator StrokeThickness="1" StrokeDashArray="2"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Time" LabelFormatter="{Binding TimeLabelFormatter}" Foreground="#a0a0a0"/>
+                                </lvc:CartesianChart.AxisX>
+                            </lvc:CartesianChart>
+                        </Grid>
+                    </Border>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
+                            <TextBlock Text="네트워크 트래픽" Foreground="#fcfafa" FontSize="16" VerticalAlignment="Center" Margin="0 0 15 0"/>
+                            <Icon:PackIconMaterial Kind="Server" Foreground="{StaticResource RunningBrush}" Width="18" Height="15" VerticalAlignment="Center" Margin="0 0 5 0"/>
+                            <TextBlock Text="송신: 0.0KB/s | 수신: 0.0KB/s" Foreground="#fcfafa" FontSize="14" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="StatusText" Content="초기화중..."
+                                    Background="#4CAF50" Margin="0 0 10 0" Height="35" Width="150" Foreground="White" BorderBrush="Transparent" />
+                            <Button x:Name="ShutdownButton" Content="🔴 STOP (가동 정지)"
+                                    Background="#F44336" Height="35" Width="150" Foreground="White" BorderBrush="Transparent" Click="ShutdownButton_Click" />
+                            
+                        </StackPanel>
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
