@@ -1,0 +1,108 @@
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.exe
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.deps.json
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.runtimeconfig.json
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.pdb
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host_MarkupCompile.cache
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host_MarkupCompile.lref
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.g.resources
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.AssemblyInfoInputs.cache
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.AssemblyInfo.cs
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.csproj.CoreCompileInputs.cache
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.sourcelink.json
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\refint\DanawaR_Host.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.pdb
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.genruntimeconfig.cache
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\ref\DanawaR_Host.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.dll.config
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\System.Configuration.ConfigurationManager.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\System.Data.SqlClient.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\System.Diagnostics.EventLog.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\System.Security.Cryptography.ProtectedData.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.Messages.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.csproj.AssemblyReference.cache
+C:\Users\yang seung jun\Source\Repos\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_.6B30090F.Up2Date
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.exe
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.dll.config
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.deps.json
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.runtimeconfig.json
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.pdb
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\System.Configuration.ConfigurationManager.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\System.Data.SqlClient.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\System.Diagnostics.EventLog.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\System.Security.Cryptography.ProtectedData.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.Messages.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.csproj.AssemblyReference.cache
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host_MarkupCompile.cache
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host_MarkupCompile.lref
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.g.resources
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.AssemblyInfoInputs.cache
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.AssemblyInfo.cs
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.csproj.CoreCompileInputs.cache
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.sourcelink.json
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_.6B30090F.Up2Date
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\refint\DanawaR_Host.dll
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.pdb
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.genruntimeconfig.cache
+C:\Users\qwer\Downloads\WPF--\WPF--\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\ref\DanawaR_Host.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.exe
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.dll.config
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.deps.json
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.runtimeconfig.json
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\DanawaR_Host.pdb
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\System.Configuration.ConfigurationManager.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\System.Data.SqlClient.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\System.Diagnostics.EventLog.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\System.Security.Cryptography.ProtectedData.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.Messages.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.csproj.AssemblyReference.cache
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host_MarkupCompile.cache
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host_MarkupCompile.lref
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.g.resources
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.AssemblyInfoInputs.cache
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.AssemblyInfo.cs
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.csproj.CoreCompileInputs.cache
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.sourcelink.json
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_.6B30090F.Up2Date
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\refint\DanawaR_Host.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.pdb
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\DanawaR_Host.genruntimeconfig.cache
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\obj\Debug\net8.0-windows\ref\DanawaR_Host.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\qwer\Downloads\SystemMonitor\SystemMonitor\bin\Debug\net8.0-windows\MySqlConnector.dll
