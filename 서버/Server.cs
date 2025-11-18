@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Configuration;          // ConfigurationManager
 using MySqlConnector;                // MySQL 전용 (SqlClient 대신)
 using System.Diagnostics;           // Debug.WriteLine
@@ -15,6 +16,8 @@ namespace DanawaR_Host
     {
         private static TcpListener? listener;
         private static readonly List<TcpClient> clients = new();
+        // DeviceID별로 클라이언트 매핑 (선택된 PC만 종료 시 사용)
+        private static readonly Dictionary<string, TcpClient> deviceMap = new();
         private const int Port = 9000;
 
         private static readonly Random rand = new();
@@ -90,6 +93,12 @@ namespace DanawaR_Host
 
                     if (data != null && !string.IsNullOrEmpty(data.DeviceID))
                     {
+                        // 이 클라이언트가 보고한 DeviceID 기준으로 매핑 등록/갱신
+                        lock (deviceMap)
+                        {
+                            deviceMap[data.DeviceID] = client;
+                        }
+
                         try
                         {
                             await SaveToDBAsync(data);
@@ -107,9 +116,39 @@ namespace DanawaR_Host
             }
             finally
             {
+                // 연결 종료된 클라이언트 제거
                 lock (clients) clients.Remove(client);
+
+                // deviceMap에서 이 클라이언트를 사용하는 모든 DeviceID 제거
+                lock (deviceMap)
+                {
+                    var removeKeys = new List<string>();
+                    foreach (var kv in deviceMap)
+                    {
+                        if (kv.Value == client)
+                            removeKeys.Add(kv.Key);
+                    }
+                    foreach (var key in removeKeys)
+                        deviceMap.Remove(key);
+                }
+
                 client.Close();
                 Debug.WriteLine("[HOST] Client disconnected");
+            }
+        }
+
+        private static async Task SendJsonAsync(TcpClient client, object obj)
+        {
+            try
+            {
+                var stream = client.GetStream();
+                string json = JsonSerializer.Serialize(obj);
+                byte[] bytes = Encoding.UTF8.GetBytes(json);
+                await stream.WriteAsync(bytes, 0, bytes.Length);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("[HOST] SendJson error: " + ex.Message);
             }
         }
 
@@ -121,7 +160,7 @@ namespace DanawaR_Host
 
             string q = @"
                 INSERT INTO SensorDataLog
-                (DeviceID, CpuUsage, RamUsagePercent, DiskUsagePercent, 
+                (DeviceID, CpuUsage, RamUsagePercent, DiskUsagePercent,
                  NetworkSent, NetworkReceived, VirtualTemp)
                 VALUES
                 (@DeviceID, @Cpu, @Ram, @Disk, @NSent, @NRecv, @Temp);
@@ -137,16 +176,7 @@ namespace DanawaR_Host
             cmd.Parameters.AddWithValue("@Temp", d.VirtualTemp);
 
             await cmd.ExecuteNonQueryAsync();
-            Debug.WriteLine("[HOST] DB Insert OK");
-        }
-
-        private static Task SendJsonAsync(TcpClient client, object payload)
-        {
-            string json = JsonSerializer.Serialize(payload);
-            byte[] data = Encoding.UTF8.GetBytes(json);
-            var stream = client.GetStream();
-
-            return stream.WriteAsync(data, 0, data.Length);
+            Debug.WriteLine("[HOST] DB insert OK");
         }
 
         private static string GenerateTempCode()
@@ -157,6 +187,36 @@ namespace DanawaR_Host
             }
         }
 
+        // 특정 DeviceID 한 대만 종료 명령 전송
+        public static async Task SendShutdownToAsync(string deviceId)
+        {
+            if (string.IsNullOrEmpty(deviceId))
+            {
+                Debug.WriteLine("[HOST] SendShutdownToAsync: deviceId is null or empty");
+                return;
+            }
+
+            TcpClient? target = null;
+            lock (deviceMap)
+            {
+                if (deviceMap.TryGetValue(deviceId, out var client))
+                {
+                    target = client;
+                }
+            }
+
+            if (target == null || !target.Connected)
+            {
+                Debug.WriteLine($"[HOST] SendShutdownToAsync: target not found or not connected (DeviceID={deviceId})");
+                return;
+            }
+
+            var shutdownMsg = new { type = "SHUTDOWN" };
+            await SendJsonAsync(target, shutdownMsg);
+            Debug.WriteLine($"[HOST] SHUTDOWN sent to DeviceID={deviceId}");
+        }
+
+        // 기존: 전체 브로드캐스트 종료 (원하면 버튼 따로 만들어서 사용)
         public static async Task BroadcastShutdownAsync()
         {
             var shutdownMsg = new { type = "SHUTDOWN" };
