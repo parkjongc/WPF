@@ -1,0 +1,16 @@
+﻿<Window x:Name="window" x:Class="DanawaRClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DanawaRClient"
+        xmlns:views="clr-namespace:DanawaRClient.Views"
+        mc:Ignorable="d"
+        Title="다나와 리소스" Height="990" Width="350"
+        Background="Transparent" AllowsTransparency="True"
+        WindowStyle="None" ResizeMode="NoResize" Topmost="True">
+    <Border x:Name="border" Background="#0f1017" MouseDown="border_MouseDown" CornerRadius="10">
+        <views:MainView />
+    </Border>
+</Window>
+<!--AllowsTransparency = 투명표현을 허용할지 true면 허용 -->
