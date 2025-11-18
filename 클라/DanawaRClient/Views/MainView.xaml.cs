@@ -39,7 +39,7 @@ namespace DanawaRClient.Views
         // TCP Client
         private TcpClient? _tcpClient;
         private NetworkStream? _networkStream;
-        private readonly string _serverIp = "10.10.21.119"; // 서버 IP 주소
+        private readonly string _serverIp = "10.10.21.127"; // 서버 IP 주소
         private readonly int _serverPort = 9000;
 
         // Device ID
@@ -535,8 +535,8 @@ namespace DanawaRClient.Views
                 if (cDrive != null)
                 {
                     float cPercent = 1f - ((float)cDrive.AvailableFreeSpace / cDrive.TotalSize);
-                    diskCLabel.Content = cPercent;
-                    diskCGauge.GaugeValue = cPercent * 100;
+                    diskCLabel.Content = cPercent;  // ← Label은 그대로 (P1 포맷이 자동 변환)
+                    diskCGauge.GaugeValue = cPercent * 100;  // ← 게이지만 100 곱하기
                 }
 
                 // D 드라이브
@@ -544,8 +544,14 @@ namespace DanawaRClient.Views
                 if (dDrive != null)
                 {
                     float dPercent = 1f - ((float)dDrive.AvailableFreeSpace / dDrive.TotalSize);
-                    diskDLabel.Content = dPercent;
-                    diskDGauge.GaugeValue = dPercent * 100;
+                    diskDLabel.Content = dPercent;  // ← Label은 그대로 (P1 포맷이 자동 변환)
+                    diskDGauge.GaugeValue = dPercent * 100;  // ← 게이지만 100 곱하기
+
+                    Debug.WriteLine($"[CLIENT] D Drive: {dPercent:P1} ({dPercent * 100:F1}% for gauge)");
+                }
+                else
+                {
+                    Debug.WriteLine("[CLIENT] D Drive not found");
                 }
 
                 // Network
