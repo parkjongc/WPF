@@ -6,12 +6,13 @@
              xmlns:local="clr-namespace:DanawaRClient.Views.UserControls"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="300">
+             d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style TargetType="lvc:LineSeries">
             <Setter Property="StrokeThickness" Value="2"/>
             <Setter Property="PointGeometrySize" Value="0"/>
             <Setter Property="Stroke" Value="#05f4fc"/>
+
             <Setter Property="Fill">
                 <Setter.Value>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -23,8 +24,10 @@
             </Setter>
         </Style>
     </UserControl.Resources>
+
     <Grid>
-        <lvc:CartesianChart LegendLocation="None">
+        <lvc:CartesianChart Grid.Row="1" Margin="10" LegendLocation="None" 
+                    >
             <lvc:CartesianChart.DataTooltip>
                 <lvc:DefaultTooltip Background="Transparent" Foreground="Transparent" BulletSize="10" 
                             Opacity="0.7" ShowSeries="False" ShowTitle="False"/>
@@ -32,17 +35,23 @@
             <lvc:CartesianChart.Series>
                 <lvc:LineSeries Values="{Binding ChartValues}"/>
             </lvc:CartesianChart.Series>
+
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis ShowLabels="False" MinValue="0" MaxValue="60">
+                <lvc:Axis Foreground="#464a63" ShowLabels="False" 
+                  LabelFormatter="{Binding DateTimeFormatter}" 
+                  MaxValue="{Binding AxisMax}" 
+                  MinValue="{Binding AxisMin}"
+                  Unit="{Binding AxisUnit}">
                     <lvc:Axis.Separator>
-                        <lvc:Separator StrokeThickness="0" Stroke="#2c3a54"/>
+                        <lvc:Separator StrokeThickness="0" Stroke="#2c3a54" Step="{Binding AxisStep}"/>
                     </lvc:Axis.Separator>
                 </lvc:Axis>
             </lvc:CartesianChart.AxisX>
+
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Foreground="#464a63" ShowLabels="True" MinValue="0" MaxValue="100">
                     <lvc:Axis.Separator>
-                        <lvc:Separator StrokeThickness="0.5" Stroke="#2c3a54"/>
+                        <lvc:Separator StrokeThickness="0" Stroke="#2c3a54" />
                     </lvc:Axis.Separator>
                 </lvc:Axis>
             </lvc:CartesianChart.AxisY>

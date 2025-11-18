@@ -17,9 +17,9 @@
             <RowDefinition Height="330"/>
             <RowDefinition Height="110"/>
             <!-- 온도 표시 때문에 Row 하나 더 추가-->
-            <RowDefinition Height="55"/> 
-        </Grid.RowDefinitions>   
-        
+            <RowDefinition Height="55"/>
+        </Grid.RowDefinitions>
+
         <!--Title-->
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="다나와 리소스" VerticalAlignment="Bottom" Margin="10 0"  
@@ -211,7 +211,7 @@
                                  Radius="60"
                                  Foreground1="#0a7af2"
                                  Foreground2="#05f4fc"/>
-                
+
                 <Label x:Name="diskSpaceTotalLabel"
                        Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2"
                        Foreground="#fcfafa" FontSize="15" FontWeight="SemiBold"
@@ -256,14 +256,14 @@
                                VerticalAlignment="Center" FontWeight="SemiBold"
                                HorizontalAlignment="Right" Padding="0" Margin="5 0 0 0"/>
                 </StackPanel>
-                
+
                 <!-- 세로 구분선 -->
                 <StackPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="6" Orientation="Horizontal">
                     <Separator Margin="10 0 0 5" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
                                BorderBrush="#464a63" BorderThickness="0.6">
                     </Separator>
                 </StackPanel>
-                
+
                 <!-- C: 사용량 -->
                 <TextBlock Text="Disk C" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
                            Style="{StaticResource titleText}" FontSize="12"
@@ -275,7 +275,7 @@
                                  Radius="35"
                                  Foreground1="#0a7af2"
                                  Foreground2="#fa6e02"/>
-                
+
                 <Label x:Name="diskCLabel"
                        Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2"
                        Foreground="#fcfafa" FontSize="15" FontWeight="SemiBold"
@@ -283,7 +283,7 @@
                        Padding="0"
                        ContentStringFormat="{}{0:P1}"
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                
+
                 <!-- D: 사용량 -->
                 <TextBlock Text="Disk D" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2"
                            Style="{StaticResource titleText}" FontSize="12"
@@ -304,7 +304,7 @@
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
         </Border>
-        
+
         <!-- Network -->
         <Border Style="{StaticResource mainBorder}" Grid.Row="4" Margin="15 10 15 0">
             <Grid>
@@ -369,7 +369,7 @@
                 </StackPanel>
             </Grid>
         </Border>
-        
+
         <!-- Temperature -->
         <Border Style="{StaticResource mainBorder}" Grid.Row="5" Margin="15 10 15 0">
             <Grid>
