@@ -8,8 +8,10 @@
         mc:Ignorable="d"
         Title="다나와 리소스" Height="990" Width="350"
         Background="Transparent" AllowsTransparency="True"
-        WindowStyle="None" ResizeMode="NoResize" Topmost="True">
-    <Border x:Name="border" Background="#0f1017" MouseDown="border_MouseDown" CornerRadius="10">
+        WindowStyle="None" ResizeMode="NoResize" Topmost="True"
+        WindowStartupLocation="CenterScreen">
+    <Border x:Name="border" Background="#0f1017" 
+            MouseDown="border_MouseDown" CornerRadius="10">
         <views:MainView />
     </Border>
 </Window>

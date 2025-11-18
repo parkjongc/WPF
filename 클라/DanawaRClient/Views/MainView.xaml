@@ -204,7 +204,7 @@
                 <TextBlock Text="Total Disk Space" Grid.Row="2" Grid.ColumnSpan="2"
                            Style="{StaticResource titleText}" FontSize="14"
                            VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                <!-- 값이 반영되지 않음 주의 DataContext="{Binding diskSpaceTotal}" -->
+                <!-- 값이 반영되지 않음 주의 -->
                 <linechart:Gauge x:Name="diskTotalGauge"
                                  Grid.Row="2" Grid.RowSpan="4" Grid.ColumnSpan="2" 
                                  GaugeValue="{Binding DiskTotalGaugeValue}"
