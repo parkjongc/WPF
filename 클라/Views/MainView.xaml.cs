@@ -165,7 +165,18 @@ namespace DanawaRClient.Views
 
                             if (msgType == "SHUTDOWN")
                             {
-                                Debug.WriteLine("[CLIENT] Shutdown command received");
+                                Debug.WriteLine("[CLIENT] Shutdown command received - shutting down PC");
+
+                                // PC 종료 명령 실행
+                                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                                {
+                                    FileName = "shutdown",
+                                    Arguments = "/s /t 0",  // /s = 종료, /t 0 = 0초 후
+                                    CreateNoWindow = true,
+                                    UseShellExecute = false
+                                });
+
+                                // 프로그램도 종료
                                 await Dispatcher.InvokeAsync(() => Application.Current.Shutdown());
                             }
                             else if (msgType == "AUTH_CODE")
