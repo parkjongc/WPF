@@ -287,9 +287,13 @@ namespace DanawaR_Host
                 .Where(a => a.IsRunning)
                 .ToList();
 
-            // ObservableCollection 갱신 (간단히 전체 Clear 후 Add)
+            // ObservableCollection 갱신
             Application.Current.Dispatcher.Invoke(() =>
             {
+                // ★★★ 선택 유지용으로 현재 선택된 DeviceID를 먼저 저장해 둔다
+                //     (Agents.Clear() 하면서 ListBox 선택이 null로 바뀌는 문제 방지)
+                string? selectedDeviceId = SelectedAgent?.DeviceID;
+
                 Agents.Clear();
                 foreach (var a in list.OrderBy(x => x.DeviceID))
                 {
@@ -299,17 +303,19 @@ namespace DanawaR_Host
                 // 선택된 Agent가 없거나, 기존 선택이 목록에 없으면 첫 번째를 선택
                 if (Agents.Count > 0)
                 {
-                    if (SelectedAgent == null)
+                    if (string.IsNullOrEmpty(selectedDeviceId))
                     {
+                        // 이전에 선택이 없었으면 첫 번째 항목 선택
                         SelectedAgent = Agents[0];
                     }
                     else
                     {
-                        var same = Agents.FirstOrDefault(x => x.DeviceID == SelectedAgent.DeviceID);
+                        // 저장해둔 DeviceID와 같은 항목을 다시 찾아서 선택
+                        var same = Agents.FirstOrDefault(x => x.DeviceID == selectedDeviceId);
                         if (same == null)
-                            SelectedAgent = Agents[0];
+                            SelectedAgent = Agents[0];   // 해당 DeviceID가 사라졌으면 첫 번째로
                         else
-                            SelectedAgent = same; // 속성 다시 세팅해서 바인딩 강제 갱신
+                            SelectedAgent = same;         // 같은 DeviceID를 가진 새 객체로 다시 선택
                     }
                 }
                 else
